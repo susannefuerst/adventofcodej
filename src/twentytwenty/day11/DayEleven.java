@@ -9,6 +9,7 @@ import twentytwenty.Constants;
 
 public class DayEleven {
 	
+	@SuppressWarnings("unused")
 	private static final int PART1_RULE = 4;
 	private static final int PART2_RULE = 5;
 	

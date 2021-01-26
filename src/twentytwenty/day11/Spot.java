@@ -8,9 +8,6 @@ public class Spot {
 	private boolean isOccupied = false;
 	private List<Spot> adjacents = new ArrayList<Spot>();
 	
-	void Spot() {
-		
-	}
 	public void empty() {
 		this.isOccupied = false;
 	}		

@@ -12,6 +12,7 @@ public class DayTwelve {
 		part2();
 	}
 
+	@SuppressWarnings("unused")
 	private static void part1() throws NumberFormatException, IOException {
 		Ship ship = new Ship();
 		BufferedReader reader = new BufferedReader(new FileReader(Constants.DIR + "day12/12.inp"));

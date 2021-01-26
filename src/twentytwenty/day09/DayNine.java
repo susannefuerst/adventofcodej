@@ -38,6 +38,7 @@ public class DayNine {
 		System.out.print("No weakness found!");
 	}
 	
+	@SuppressWarnings("unused")
 	private static void part1() {
 		ArrayList<Integer> preamble = new ArrayList<Integer>();
 		int preambleNum = 25;
