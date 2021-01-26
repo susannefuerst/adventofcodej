@@ -9,14 +9,31 @@ import twentytwenty.Constants;
 
 public class DayEleven {
 	
+	private static final int PART1_RULE = 4;
+	private static final int PART2_RULE = 5;
+	
 	public static void main(String[] args) {
-		part1(Constants.DIR + "day11/11.inp");
+		part2(Constants.DIR + "day11/11.inp");
 	}
 	
 	public static void part1(String inFile) {
 		try {
 			ArrayList<ArrayList<Spot>> spots = getSpots(inFile);
-			determineAdjacent(spots);
+			determineAdjacent1(spots);
+			boolean changed = true;
+			while (changed == true) {
+				changed = change(spots);
+			}
+			System.out.println(numOfOccupied(spots));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void part2(String inFile) {
+		try {
+			ArrayList<ArrayList<Spot>> spots = getSpots(inFile);
+			determineAdjacent2(spots);
 			boolean changed = true;
 			while (changed == true) {
 				changed = change(spots);
@@ -53,20 +70,89 @@ public class DayEleven {
 		return spots;
 	}
 	
-	public static void determineAdjacent(ArrayList<ArrayList<Spot>> spots) {
+	public static void determineAdjacent1(ArrayList<ArrayList<Spot>> spots) {
 		int rowMax = spots.size() - 1;
 		int colMax = spots.get(0).size() - 1;
 		for (ArrayList<Spot> spotsLine : spots) {
 			for (Spot spot : spotsLine) {
-				if(spot.isSeat) {
+				if(spot.isSeat()) {
+					int row = spots.indexOf(spotsLine);
+					int column = spotsLine.indexOf(spot);
+					for (int i = Math.max(0, row - 1); i <= Math.min(rowMax, row + 1); i++) {
+						for (int j = Math.max(0, column - 1); j <= Math.min(colMax, column + 1); j++) {
+							if (!(i == row && j == column)) {
+								spot.addAdjacent(spots.get(i).get(j));
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public static void determineAdjacent2(ArrayList<ArrayList<Spot>> spots) {
+		int rowMax = spots.size() - 1;
+		int colMax = spots.get(0).size() - 1;
+		for (ArrayList<Spot> spotsLine : spots) {
+			for (Spot spot : spotsLine) {
+				if(spot.isSeat()) {
 					int row = spots.indexOf(spotsLine);
 					int column = spotsLine.indexOf(spot);
 					if (spot.isSeat()) {
-						for (int i = Math.max(0, row - 1); i <= Math.min(rowMax, row + 1); i++) {
-							for (int j = Math.max(0, column - 1); j <= Math.min(colMax, column + 1); j++) {
-								if (!(i == row && j == column)) {
-									spot.addAdjacent(spots.get(i).get(j));
-								}
+						for (int i = 1; row - i >= 0; i++) {
+							Spot other = spots.get(row - i).get(column);
+							if (other.isSeat()) {
+								spot.addAdjacent(other);
+								break;
+							}
+						}
+						for (int i = 1; row + i <= rowMax; i++) {
+							Spot other = spots.get(row + i).get(column);
+							if (other.isSeat()) {
+								spot.addAdjacent(other);
+								break;
+							}
+						}
+						for (int i = 1; column + i <= colMax; i++) {
+							Spot other = spots.get(row).get(column + i);
+							if (other.isSeat()) {
+								spot.addAdjacent(other);
+								break;
+							}
+						}
+						for (int i = 1; column - i >=0; i++) {
+							Spot other = spots.get(row).get(column - i);
+							if (other.isSeat()) {
+								spot.addAdjacent(other);
+								break;
+							}
+						}
+						for (int i = 1; row - i >=0 && column - i >= 0; i++) {
+							Spot other = spots.get(row - i).get(column - i);
+							if (other.isSeat()) {
+								spot.addAdjacent(other);
+								break;
+							}
+						}
+						for (int i = 1; row + i <= rowMax && column + i <= colMax; i++) {
+							Spot other = spots.get(row + i).get(column + i);
+							if (other.isSeat()) {
+								spot.addAdjacent(other);
+								break;
+							}
+						}
+						for (int i = 1; row + i <= rowMax && column - i >= 0; i++) {
+							Spot other = spots.get(row + i).get(column - i);
+							if (other.isSeat()) {
+								spot.addAdjacent(other);
+								break;
+							}
+						}
+						for (int i = 1; row - i >= 0 && column + i <= colMax; i++) {
+							Spot other = spots.get(row - i).get(column + i);
+							if (other.isSeat()) {
+								spot.addAdjacent(other);
+								break;
 							}
 						}
 					}
@@ -93,10 +179,11 @@ public class DayEleven {
 		} else {
 			return false;
 		}
+		print(spots);
 		ArrayList<int[]> toEmpty = new ArrayList<int[]>();
 		for (ArrayList<Spot> spotsLine : spots) {
 			for (Spot spot : spotsLine) {
-				if (spot.isSeat() && spot.isOccupied() && spot.occupiedAdjacents() >= 4) {
+				if (spot.isSeat() && spot.isOccupied() && spot.occupiedAdjacents() >= PART2_RULE) {
 					int[] indices = {spots.indexOf(spotsLine), spotsLine.indexOf(spot)};
 					toEmpty.add(indices);
 				}
@@ -109,6 +196,7 @@ public class DayEleven {
 		} else {
 			return false;
 		}
+		print(spots);
 		return changed;
 	}
 	

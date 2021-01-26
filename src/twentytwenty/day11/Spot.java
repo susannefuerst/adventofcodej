@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Spot {
-	boolean isSeat = true;
-	boolean isOccupied = false;
-	List<Spot> adjacents = new ArrayList<Spot>();
+	private boolean isSeat = true;
+	private boolean isOccupied = false;
+	private List<Spot> adjacents = new ArrayList<Spot>();
 	
 	void Spot() {
 		
