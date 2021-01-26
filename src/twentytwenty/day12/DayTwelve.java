@@ -9,6 +9,10 @@ import twentytwenty.Constants;
 public class DayTwelve {
 	
 	public static void main(String[] args) throws IOException {
+		part1();
+	}
+
+	private static void part1() throws NumberFormatException, IOException {
 		Ship ship = new Ship();
 		BufferedReader reader = new BufferedReader(new FileReader(Constants.DIR + "day12/12.inp"));
 		String line;

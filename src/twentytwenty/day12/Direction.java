@@ -9,7 +9,7 @@ public enum Direction {
 		this.value = value;
 	}
 	
-	public Direction turn(int degrees) throws Exception {
+	public Direction turn(int degrees) {
 		int newValue = (this.value + degrees/90 + 4) % 4;
 		for (Direction dir : Direction.values()) {
 			if (dir.value == newValue) {

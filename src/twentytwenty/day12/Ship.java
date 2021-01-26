@@ -33,12 +33,7 @@ public class Ship {
 		this.ew -= units;
 	}
 	public void left(int degrees) {
-		try {
-			this.dir = this.dir.turn(degrees);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.dir = this.dir.turn(degrees);
 	}
 	public void right(int degree) {
 		left(-degree);
