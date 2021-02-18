@@ -40,9 +40,9 @@ public class DayThirteen {
 		System.out.println(first.getKey()*first.getValue());
 	}
 	/*
-	 * If we denote the searched time point as x the we want that there exists natural number k_n, so that
-	 * x + n = k_n*I_n, where n denotes the bus offset and I_n the bus ID.
-	 * Let us assume we can write k_n = 1 - a_n for some a_n. Then the equation reads
+	 * If we denote the searched time point as x, then we want that there exists a natural number k_n, 
+	 * so that x + n = k_n*I_n, where n denotes the bus offset and I_n the bus ID.
+	 * Let us write k_n = 1 - a_n for some a_n. Then the equation reads
 	 * x + n = (1-a_n)I_n
 	 * => I_n - n = k_n*I_n + x
 	 * => x = (I_n - n) mod I_n
